@@ -15,6 +15,11 @@ export class CourseService {
     return this.courseModel.find().skip(start).limit(limit).exec();
   }
 
+  async countCourses() : Promise<number> {
+    const courseCount = await this.courseModel.countDocuments().exec();
+    return courseCount; 
+  }
+
   async createCourse(createCourseDto: CreateCourseDto): Promise<CourseDocument> {
     const newCourse = new this.courseModel(createCourseDto);
     return newCourse.save();

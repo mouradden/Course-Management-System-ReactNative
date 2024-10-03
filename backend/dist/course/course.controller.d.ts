@@ -9,6 +9,7 @@ export declare class CourseController {
         course: CourseDocument;
     }>;
     loadCourseData(): Promise<string>;
+    getCoursesCount(): Promise<number>;
     getCoursesByInterval(start: string, end: string): Promise<CourseDocument[] | {
         message: string;
     }>;

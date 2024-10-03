@@ -30,6 +30,9 @@ let CourseController = class CourseController {
         await this.courseService.loadDataFromFile(filePath);
         return 'Data has been loaded';
     }
+    async getCoursesCount() {
+        return await this.courseService.countCourses();
+    }
     async getCoursesByInterval(start, end) {
         const startIndex = parseInt(start, 10);
         const endIndex = parseInt(end, 10);
@@ -53,6 +56,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "loadCourseData", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getCoursesCount", null);
 __decorate([
     (0, common_1.Get)('byInterval'),
     __param(0, (0, common_1.Query)('start')),

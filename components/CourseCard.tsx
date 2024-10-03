@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import ScheduleDisplay from './ScheduleDisplay'
 import { CourseType } from '../types'
-
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 const CourseCard = ({ title, description, instructor, schedule, color }: CourseType & { color: string }) => {
     const [isExpanded, setExpanded] = useState(false);
-
+    const navigation = useNavigation();
     return (
-        <View className={`bg-white border border-gray-300 rounded-3xl shadow-md p-4 mx-8  mb-3 ${color}`}>
-            <View className='flex flex-row items-start'>
-                <Text className="text-xl text-white font-bold mb-2 flex-1">{title}</Text>
-                <ScheduleDisplay schedule={schedule} />
+        <TouchableOpacity 
+        onPress={() => {
+            navigation.navigate("Course", { title, description, instructor, schedule });
+        }}
+        className={`rounded-3xl shadow-lg mx-8 mb-4 ${color}`}
+    >
+        <View 
+            className={`bg-white p-6 rounded-3xl shadow-md ${color}`}
+        >
+            <View className='flex flex-row items-center mb-2'>
+                <Text className="text-2xl font-bold text-gray-900 flex-1">{title}</Text>
+                {/* <View className='bg-blue-600 rounded-full p-2'>
+                    <Ionicons name="calendar-outline" size={20} color="white" /> */}
+                    <ScheduleDisplay schedule={schedule}/>
+                {/* </View> */}
             </View>
             <Text className="text-gray-700 font-semibold">Instructor: {instructor}</Text>
-            <Text className="text-gray-100 my-2">
+            <Text className={`text-gray-600 my-2 ${isExpanded ? 'line-clamp-none' : 'line-clamp-3'}`}>
                 {isExpanded ? description : `${description.substring(0, 100)}...`}
             </Text>
 
-            {/* Read more/less Toggle */}
             <TouchableOpacity onPress={() => setExpanded(!isExpanded)}>
-                <Text className="text-yellow-300 font-semibold mt-1">
+                <Text className="text-yellow-500 font-semibold mt-1 underline">
                     {description.length > 100 ? isExpanded ? 'Read less' : 'Read more' : ''}
                 </Text>
             </TouchableOpacity>
-            
         </View>
+    </TouchableOpacity>
+
     );
 };
 

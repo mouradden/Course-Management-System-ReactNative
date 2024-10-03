@@ -26,6 +26,10 @@ let CourseService = class CourseService {
         const limit = end - start;
         return this.courseModel.find().skip(start).limit(limit).exec();
     }
+    async countCourses() {
+        const courseCount = await this.courseModel.countDocuments().exec();
+        return courseCount;
+    }
     async createCourse(createCourseDto) {
         const newCourse = new this.courseModel(createCourseDto);
         return newCourse.save();

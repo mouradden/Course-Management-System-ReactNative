@@ -20,7 +20,10 @@ export class CourseController {
     await this.courseService.loadDataFromFile(filePath);
     return 'Data has been loaded';
   }
-
+  @Get()
+  async getCoursesCount(): Promise<number>{
+    return await this.courseService.countCourses();
+  }
   @Get('byInterval')
   async getCoursesByInterval(@Query('start') start: string, @Query('end') end: string) {
     const startIndex = parseInt(start, 10);
