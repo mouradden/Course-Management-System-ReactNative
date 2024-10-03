@@ -13,4 +13,5 @@ export declare class CourseController {
     getCoursesByInterval(start: string, end: string): Promise<CourseDocument[] | {
         message: string;
     }>;
+    getSearchedCourses(searchQuery: string, page: number): Promise<CourseDocument[]>;
 }

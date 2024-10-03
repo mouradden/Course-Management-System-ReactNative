@@ -9,7 +9,7 @@ export class CourseController {
   
   @Post('addNew')
   async createCourse(@Body() createCourseDto: CreateCourseDto): Promise<{ message: string; course: CourseDocument }> {
-    console.log('body ', createCourseDto);
+    // console.log('body ', createCourseDto);
       const createdCourse = await this.courseService.createCourse(createCourseDto);
       return { message: 'Course created', course: createdCourse };
   }
@@ -35,5 +35,10 @@ export class CourseController {
     }
 
     return this.courseService.getCoursesByInterval(startIndex, endIndex);
+  }
+
+  @Get('search')
+  async getSearchedCourses(@Query('searchQuery') searchQuery: string, @Query('page') page: number){
+    return this.courseService.searchCourses(searchQuery, page);
   }
 }

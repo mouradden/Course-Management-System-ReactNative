@@ -21,7 +21,6 @@ let CourseController = class CourseController {
         this.courseService = courseService;
     }
     async createCourse(createCourseDto) {
-        console.log('body ', createCourseDto);
         const createdCourse = await this.courseService.createCourse(createCourseDto);
         return { message: 'Course created', course: createdCourse };
     }
@@ -40,6 +39,9 @@ let CourseController = class CourseController {
             return { message: 'Invalid interval' };
         }
         return this.courseService.getCoursesByInterval(startIndex, endIndex);
+    }
+    async getSearchedCourses(searchQuery, page) {
+        return this.courseService.searchCourses(searchQuery, page);
     }
 };
 exports.CourseController = CourseController;
@@ -70,6 +72,14 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getCoursesByInterval", null);
+__decorate([
+    (0, common_1.Get)('search'),
+    __param(0, (0, common_1.Query)('searchQuery')),
+    __param(1, (0, common_1.Query)('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getSearchedCourses", null);
 exports.CourseController = CourseController = __decorate([
     (0, common_1.Controller)('course'),
     __metadata("design:paramtypes", [course_service_1.CourseService])

@@ -46,6 +46,19 @@ let CourseService = class CourseService {
             console.log('Data already exists, skipping insertion.');
         }
     }
+    async searchCourses(searchQuery, page) {
+        console.log('page ', page);
+        const regex = new RegExp(`\\b${searchQuery}\\b`, 'i');
+        const courses = await this.courseModel.find({
+            $or: [
+                { title: { $regex: regex } },
+                { instructor: { $regex: regex } }
+            ]
+        })
+            .skip((page - 1) * 4)
+            .limit(4);
+        return courses;
+    }
 };
 exports.CourseService = CourseService;
 exports.CourseService = CourseService = __decorate([

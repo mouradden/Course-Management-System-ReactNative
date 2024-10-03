@@ -8,4 +8,5 @@ export declare class CourseService {
     countCourses(): Promise<number>;
     createCourse(createCourseDto: CreateCourseDto): Promise<CourseDocument>;
     loadDataFromFile(filePath: string): Promise<void>;
+    searchCourses(searchQuery: string, page: number): Promise<CourseDocument[]>;
 }
