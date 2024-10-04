@@ -33,7 +33,7 @@ const RegisterScreen = () => {
         setWarning('');
 
         const user = { username, email, password };
-        axios.post('http://192.168.1.106:3000/auth/register', user)
+        axios.post('http://localhost:3000/auth/register', user)
         .then((response) => {
             const { status, message, user } = response.data;
 

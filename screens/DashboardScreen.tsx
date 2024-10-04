@@ -30,7 +30,7 @@ const DashboardScreen = () => {
     };
     useEffect(()=>{
         checkLogin();
-        axios.get('http://192.168.1.106:3000/course')
+        axios.get('http://localhost:3000/course')
         .then ((response) => {
             setCoursesLength(response.data);
         })
@@ -39,7 +39,7 @@ const DashboardScreen = () => {
         })
     }, []);
     useEffect(()=>{
-        axios.get('http://192.168.1.106:3000/course/byInterval',
+        axios.get('http://localhost:3000/course/byInterval',
             { params: 
                 {
                     'start': pageStart,

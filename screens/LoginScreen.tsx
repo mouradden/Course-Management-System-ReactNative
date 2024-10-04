@@ -27,7 +27,7 @@ const LoginScreen = () => {
         setWarning('');
 
         const user = { username, password };
-        axios.post('http://192.168.1.106:3000/auth/login', user)
+        axios.post('http://localhost:3000/auth/login', user)
             .then(async (response) => {
                 // console.log('User logged in successfully', response.data);
                 await SecureStore.setItemAsync('userToken', response.data.access_token);

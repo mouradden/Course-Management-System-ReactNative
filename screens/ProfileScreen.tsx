@@ -25,7 +25,7 @@ const ProfileScreen = () => {
     const getLoggedUser = async () => {
         const userToken = await SecureStore.getItemAsync('userToken');
         try {
-            const response = await axios.get('http://192.168.1.106:3000/profile', {
+            const response = await axios.get('http://localhost:3000/profile', {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },

@@ -22,7 +22,7 @@ const SearchScreen = () => {
     }, [searchQuery]);
     const fetchCourses = async (currentPage: number) => {
             if (searchQuery.length >= 3) {
-                axios.get('http://192.168.1.106:3000/course/search',
+                axios.get('http://localhost:3000/course/search',
                     { params: 
                         {
                             'searchQuery': searchQuery,
