@@ -26,7 +26,7 @@
     npm start
    ```
 
-## Some points in the features
+## Technologies and libraries
 
 TypeScript, React Native, Tailwind CSS, MongoDB, Expo, NestJS, and Axios.
 
