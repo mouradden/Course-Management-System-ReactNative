@@ -33,7 +33,6 @@ const DashboardScreen = () => {
         axios.get('http://192.168.1.106:3000/course')
         .then ((response) => {
             setCoursesLength(response.data);
-            console.log('we have ' +response.data+ ' courses');
         })
         .catch ((error) => {
             console.log('cannot get the data', error);
@@ -82,7 +81,7 @@ const DashboardScreen = () => {
         </View>
         
         {/* Second View (Main Content) */}
-        <View className="flex-grow px-3">
+        <View className="flex-grow px-3 h-4/5">
             <FlatList
                 data={courses}
                 renderItem={({ item, index }: { item: CourseType; index: number }) => (

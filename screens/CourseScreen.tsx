@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, TouchableOpacity, Image, SafeAreaView, Animated, Easing } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -12,7 +12,7 @@ const CourseScreen = () => {
     const fadeAnim = new Animated.Value(0);
     const slideAnim = new Animated.Value(30);
 
-    React.useEffect(() => {
+    useEffect(() => {
         Animated.parallel([
             Animated.timing(fadeAnim, {
                 toValue: 1,
@@ -69,13 +69,6 @@ const CourseScreen = () => {
                     </View>
                 </TouchableOpacity>
             </Animated.View>
-
-            {/* Bottom Subtle Image Background */}
-            <Image 
-                source={{ uri: 'https://example.com/fancy-pattern.png' }} 
-                className="absolute bottom-0 w-full h-full opacity-5"
-                style={{ zIndex: -1 }}
-            />
         </SafeAreaView>
     );
 };

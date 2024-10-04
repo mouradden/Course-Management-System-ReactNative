@@ -24,7 +24,6 @@ const ProfileScreen = () => {
     
     const getLoggedUser = async () => {
         const userToken = await SecureStore.getItemAsync('userToken');
-        console.log('token ', userToken);
         try {
             const response = await axios.get('http://192.168.1.106:3000/profile', {
                 headers: {

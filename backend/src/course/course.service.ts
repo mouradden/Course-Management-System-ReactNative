@@ -26,7 +26,6 @@ export class CourseService {
   }
   async loadDataFromFile(filePath: string): Promise<void> {
     const courseCount = await this.courseModel.countDocuments().exec();
-    console.log("count ", courseCount);
     if (courseCount === 0) {
       const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
       await this.courseModel.insertMany(data);
