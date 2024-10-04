@@ -1,6 +1,6 @@
 import { CourseService } from './course.service';
 import { CreateCourseDto } from '../dto/create-course.dto';
-import { CourseDocument } from '../schemas/course.schema';
+import { CourseDocument } from './course.schema';
 export declare class CourseController {
     private readonly courseService;
     constructor(courseService: CourseService);

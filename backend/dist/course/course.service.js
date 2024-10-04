@@ -16,7 +16,7 @@ exports.CourseService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const course_schema_1 = require("../schemas/course.schema");
+const course_schema_1 = require("./course.schema");
 const fs = require("fs");
 let CourseService = class CourseService {
     constructor(courseModel) {

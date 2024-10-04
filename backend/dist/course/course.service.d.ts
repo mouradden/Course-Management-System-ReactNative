@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import { CreateCourseDto } from '../dto/create-course.dto';
-import { CourseDocument } from '../schemas/course.schema';
+import { CourseDocument } from './course.schema';
 export declare class CourseService {
     private courseModel;
     constructor(courseModel: Model<CourseDocument>);
