@@ -4,6 +4,11 @@ export interface CourseType {
     instructor: string;
     schedule: string;
 }
+export type UserType = {
+  username: string;
+  email: string;
+} | null;
+
 
 export const daysOfWeek = [
     { label: 'Monday', value: 'Monday' },

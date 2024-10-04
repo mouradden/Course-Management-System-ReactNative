@@ -6,14 +6,30 @@ import { CourseType } from '../types'
 import axios from 'axios';
 import { TodayDate } from '../components/TodayDate'
 import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
+
+
 const DashboardScreen = () => {
     const navigation = useNavigation();
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [coursesLength, setCoursesLength] = useState<number>(0);
     const [pageStart, setPageStart] = useState(0);
     const [pageEnd, setPageEnd] = useState(5);
+    const colors: string[] = ['bg-red-300', 'bg-green-300', 'bg-blue-300', 'bg-yellow-300', 'bg-purple-300'];
 
+
+    const checkLogin = async () => {
+        try {
+          const userToken = await SecureStore.getItemAsync('userToken');
+          if (!userToken) {
+            navigation.navigate('Login');
+          }
+        } catch (error) {
+          console.error('Error checking login status', error);
+        }
+    };
     useEffect(()=>{
+        checkLogin();
         axios.get('http://192.168.1.106:3000/course')
         .then ((response) => {
             setCoursesLength(response.data);
@@ -34,17 +50,22 @@ const DashboardScreen = () => {
         )
         .then ((response) => {
             setCourses(response.data);
-            console.log('got ' +response.data.length+ ' elemets between ', pageStart, pageEnd);
         })
         .catch ((error) => {
             console.log('cannot get the data', error);
         })
     }, [pageStart, pageEnd]);
-    const colors: string[] = ['bg-red-300', 'bg-green-300', 'bg-blue-300', 'bg-yellow-300', 'bg-purple-300'];
+
+    
   return (
-    <SafeAreaView className='relative flex-1 bg-white'>
+    <SafeAreaView className='flex-1 bg-white'>
         {/* First View (Header) */}
-        <View className='flex flex-row px-8 pt-8 items-center mb-8'>
+        <View className='flex flex-row justify-between px-8 pt-8 items-center mb-8'>
+            <TouchableOpacity 
+                onPress={() => navigation.navigate("Home")}
+                className="border rounded-full w-14 h-14 items-center pt-1 mr-8 bg-yellow-300 shadow-xl transform rotate-12 hover:scale-110">
+                <ArrowLeftIcon size={42} color='black' />
+            </TouchableOpacity>
             <View className='flex-col flex-1'>
                 <Text className='text-3xl font-bold'>Dashboard</Text>
                 <TodayDate />
@@ -78,7 +99,7 @@ const DashboardScreen = () => {
             />
         </View>
 
-        {/* Last View (Pagination) Fixed at the Bottom */}
+        {/* Pagination */}
         <View className='absolute bottom-0 w-full flex flex-row items-center justify-center gap-1 bg-white pb-6'>
             <TouchableOpacity
                 onPress={()=>{

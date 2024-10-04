@@ -47,7 +47,6 @@ let CourseService = class CourseService {
         }
     }
     async searchCourses(searchQuery, page) {
-        console.log('page ', page);
         const regex = new RegExp(`\\b${searchQuery}\\b`, 'i');
         const courses = await this.courseModel.find({
             $or: [

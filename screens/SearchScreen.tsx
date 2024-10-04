@@ -1,9 +1,10 @@
-import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { MagnifyingGlassIcon, ArrowLeftIcon } from 'react-native-heroicons/outline/'
 import axios from 'axios';
 import { CourseType } from '@/types';
 import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 const SearchScreen = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -43,15 +44,37 @@ const SearchScreen = () => {
     const handleSeeMore = () => {
         setIsAskedForMore(true);
         const nextPage = page + 1;
-        fetchCourses(nextPage); // Fetch next page
+        fetchCourses(nextPage);
         setPage(nextPage);
     };
-    // console.log(courses);
+    const handleSearch = () => {
+        setIsAskedForMore(true);
+        fetchCourses(0);
+    };
+    const checkLogin = async () => {
+        try {
+          const userToken = await SecureStore.getItemAsync('userToken');
+          if (!userToken) {
+            navigation.navigate('Login');
+          }
+        } catch (error) {
+          console.error('Error checking login status', error);
+        }
+    };
+    useEffect(() => {
+        checkLogin();
+      }, []);  
   return (
-    <>
-    <View className='bg-white'>
+    <SafeAreaView className='flex-1'>
+    <View className=' bg-white'>
         <TouchableOpacity 
-            onPress={() => navigation.navigate("Dashboard")}
+            onPress={() => {
+                if (navigation.canGoBack()) {
+                  navigation.goBack();
+                } else {
+                  navigation.navigate('Home');
+                }
+              }}
             className="border rounded-full w-14 h-14 items-center pt-1 m-3 bg-yellow-300 shadow-xl transform rotate-12 hover:scale-110">
             <ArrowLeftIcon size={42} color='black' />
         </TouchableOpacity>
@@ -67,7 +90,11 @@ const SearchScreen = () => {
                 onChangeText={setSearchQuery}
                 className='flex-1 p-2'
             />
-            <TouchableOpacity className='bg-blue-200 p-2 rounded-md'>
+            <TouchableOpacity 
+                onPress={()=>{
+                    handleSearch();
+                }}
+                className='bg-blue-200 p-2 rounded-md'>
                 <MagnifyingGlassIcon />
             </TouchableOpacity>
         </View>
@@ -117,7 +144,7 @@ const SearchScreen = () => {
                                     navigation.navigate("Course",
                                         { title: item.title, description: item.description, instructor: item.instructor, schedule: item.schedule });
                                 }}
-                                className="mb-4 p-4 border rounded-lg bg-white shadow-md w-80">
+                                className="mb-4 p-4 border rounded-lg bg-white shadow-md w-80 bg-gray-100">
                                 <Text className="text-xl font-bold">{item.title}</Text>
                                 <Text className="text-gray-700">Instructor: {item.instructor}</Text>
                                 <Text className="text-gray-500">Schedule: {item.schedule}</Text>
@@ -177,7 +204,7 @@ const SearchScreen = () => {
             <></>
         }
         </View>
-        </>
+        </SafeAreaView>
   )
 }
 
