@@ -36,7 +36,6 @@ let CourseService = class CourseService {
     }
     async loadDataFromFile(filePath) {
         const courseCount = await this.courseModel.countDocuments().exec();
-        console.log("count ", courseCount);
         if (courseCount === 0) {
             const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
             await this.courseModel.insertMany(data);

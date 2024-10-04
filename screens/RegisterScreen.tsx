@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { AtSymbolIcon, LockClosedIcon, ArrowLeftIcon } from 'react-native-heroicons/outline/';
+import { AtSymbolIcon, LockClosedIcon, ArrowLeftIcon, UserIcon } from 'react-native-heroicons/outline/';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,8 @@ const RegisterScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [warning, setWarning] = useState<string>(''); // State for warning message
+    const [isRegistered, setIsRegistered] = useState<boolean>(false);
+    const [warning, setWarning] = useState<string>('');
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -33,13 +34,25 @@ const RegisterScreen = () => {
 
         const user = { username, email, password };
         axios.post('http://192.168.1.106:3000/auth/register', user)
-            .then((response) => {
-                console.log('User registered successfully', response.data);
-                navigation.navigate('Login');
-            })
-            .catch((error) => {
-                console.log('Error registering user', error);
-            });
+        .then((response) => {
+            const { status, message, user } = response.data;
+
+            if (status === 201) { 
+                console.log('User registered successfully', user);
+                setIsRegistered(true);
+                setTimeout(() => {
+                    navigation.navigate('Login');
+                }, 2000);
+            } else if (status === 400) {
+                console.log('Registration failed:', message);
+                setWarning(message);
+            }
+        })
+        .catch((error) => {
+            console.log('Error registering user:', error);
+            setWarning('An error occurred while registering. Please try again later.');
+        });
+
     };
 
     return (
@@ -60,6 +73,11 @@ const RegisterScreen = () => {
             </View>
             <View>
                 {
+                    isRegistered && <Text className='text-green-500 text-lg'>Registed Successfully, redirecting to Login page</Text>
+                }
+            </View>
+            <View>
+                {
                     warning ? (
                         <Text className='text-red-500 text-xl font-semibold'>{warning}</Text>
                     ) : null
@@ -67,7 +85,7 @@ const RegisterScreen = () => {
             </View>
             <View className='flex flex-row items-center gap-4'>
                 <View className='pt-2'>
-                    <AtSymbolIcon size={28} color='gray' />
+                    <UserIcon size={28} color='gray' />
                 </View>
                 <TextInput
                     onChangeText={setUsername}

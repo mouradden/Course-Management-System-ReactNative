@@ -14,17 +14,16 @@ const NewCourseScreen = () => {
     const [instructor, setInstructor] = useState('');
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedHour, setSelectedHour] = useState('');
-    const [warning, setWarning] = useState(''); // State for warning message
+    const [warning, setWarning] = useState('');
     const schedule = selectedDay + ' ' + selectedHour;
 
     const addCourse = () => {
-        // Check if any fields are empty
         if (!title || !description || !instructor || !selectedDay || !selectedHour) {
             setWarning('Please fill in all fields.');
             return;
         }
 
-        setWarning(''); // Clear previous warnings
+        setWarning('');
 
         const newCourse = { title, description, instructor, schedule };
         axios.post('http://localhost:3000/course/addNew', newCourse)
@@ -51,7 +50,7 @@ const NewCourseScreen = () => {
                 <Text className='text-2xl font-bold mb-20'>Add New Course</Text>
             </View>
             {warning ? (
-                <Text className='text-red-500 mb-4'>{warning}</Text> // Display warning message
+                <Text className='text-red-500 mb-4'>{warning}</Text>
             ) : null}
             <View className='flex flex-col items-center pl-2 gap-4'>
                 <View className='flex flex-row gap-4 items-center'>

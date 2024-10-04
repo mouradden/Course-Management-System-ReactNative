@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { AtSymbolIcon, LockClosedIcon, ArrowLeftIcon } from 'react-native-heroicons/outline/';
+import { UserIcon, LockClosedIcon, ArrowLeftIcon } from 'react-native-heroicons/outline/';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -29,7 +29,7 @@ const LoginScreen = () => {
         const user = { username, password };
         axios.post('http://192.168.1.106:3000/auth/login', user)
             .then(async (response) => {
-                console.log('User logged in successfully', response.data);
+                // console.log('User logged in successfully', response.data);
                 await SecureStore.setItemAsync('userToken', response.data.access_token);
                 navigation.navigate('Home');
             })
@@ -43,6 +43,25 @@ const LoginScreen = () => {
         setIsOk(true);
     }, []);
 
+    const checkLogin = async () => {
+        try {
+            const userToken = await SecureStore.getItemAsync('userToken');
+            return userToken !== null;
+        } catch (error) {
+            console.error('Error checking login status', error);
+            return false;
+        }
+    };
+
+    useEffect(() => {
+        const checkAndNavigate = async () => {
+            const isLoggedIn = await checkLogin();
+            if (isLoggedIn) {
+                navigation.navigate('Home'); 
+            }
+        };
+        checkAndNavigate();
+    }, []);
     return (
         <SafeAreaView className='flex items-center space-y-2'>
              <TouchableOpacity 
@@ -70,7 +89,7 @@ const LoginScreen = () => {
             </View>
             <View className='flex flex-row items-center gap-4'>
                 <View className='pt-2'>
-                    <AtSymbolIcon size={28} color='gray' />
+                    <UserIcon size={28} color='gray' />
                 </View>
                 <TextInput 
                     onChangeText={setUsername}

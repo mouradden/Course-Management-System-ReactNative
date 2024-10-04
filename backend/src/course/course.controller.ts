@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, Query } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from '../dto/create-course.dto';
-import { CourseDocument } from '../schemas/course.schema'
+import { CourseDocument } from './course.schema'
 
 @Controller('course')
 export class CourseController {
@@ -9,7 +9,6 @@ export class CourseController {
   
   @Post('addNew')
   async createCourse(@Body() createCourseDto: CreateCourseDto): Promise<{ message: string; course: CourseDocument }> {
-    // console.log('body ', createCourseDto);
       const createdCourse = await this.courseService.createCourse(createCourseDto);
       return { message: 'Course created', course: createdCourse };
   }

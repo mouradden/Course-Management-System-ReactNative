@@ -30,10 +30,11 @@ const ProfileScreen = () => {
                     Authorization: `Bearer ${userToken}`,
                 },
             });
-            console.log('response ', response.data);
+            // console.log('response ', response.data);
             setUser(response.data);
         } catch (error) {
             console.log('error getting the user', error);
+            handleLogout();
         } finally {
             setLoading(false);
             Animated.spring(bounceValue, {
@@ -69,22 +70,22 @@ const ProfileScreen = () => {
 
     return (
         <SafeAreaView className="flex-1 bg-gradient-to-br from-yellow-300 to-yellow-500 relative">
-            {/* Background Shapes */}
             <View className="absolute inset-0 bg-white opacity-10 rounded-full transform -translate-x-1/2" style={{ width: '150%', height: '150%', top: '-30%', left: '50%' }} />
             <View className="absolute inset-0 bg-yellow-200 opacity-30 rounded-full transform -translate-y-1/4" style={{ width: '120%', height: '120%', top: '50%', left: '-20%' }} />
             
             <View className="flex flex-row justify-between w-full px-4">
-                {/* Back Button (left) */}
+                {/* Back Button */}
                 <TouchableOpacity 
                     onPress={() => navigation.goBack()}
                     className="border rounded-full w-14 h-14 items-center pt-1 bg-white shadow-xl transform rotate-12 hover:scale-110">
                     <ArrowLeftIcon size={42} color="black" />
                 </TouchableOpacity>
                 
-                {/* Logout Button (right) */}
+                {/* Logout Button */}
                 <TouchableOpacity 
                     onPress={handleLogout}
-                    className="border rounded-full w-14 h-14 items-center justify-center bg-yellow-300 shadow-xl transform rotate-12 hover:scale-110">
+                    className="border rounded-full w-24 h-14 items-center justify-center bg-yellow-300 shadow-xl transform rotate-12 hover:scale-110">
+                    <Text className='font-bold'>LogOut</Text>
                     <ArrowRightOnRectangleIcon size={30} color="black" />
                 </TouchableOpacity>
             </View>
@@ -97,7 +98,7 @@ const ProfileScreen = () => {
                 </View>
             </Animated.View>
 
-            {/* Header with Gradient */}
+            {/* Header */}
             <View className='bg-white rounded-lg shadow-md p-4 mx-4 mb-4'>
                 <Text className="text-center text-xl font-bold mb-1">{user?.username}</Text>
                 <Text className="text-center text-gray-600">{user?.bio || 'This user has not set a bio.'}</Text>

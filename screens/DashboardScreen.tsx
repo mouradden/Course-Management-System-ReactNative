@@ -58,7 +58,7 @@ const DashboardScreen = () => {
     
   return (
     <SafeAreaView className='flex-1 bg-white'>
-        {/* First View (Header) */}
+        {/* (Header) */}
         <View className='flex flex-row justify-between px-8 pt-8 items-center mb-8'>
             <TouchableOpacity 
                 onPress={() => navigation.navigate("Home")}
@@ -80,7 +80,7 @@ const DashboardScreen = () => {
             </TouchableOpacity>
         </View>
         
-        {/* Second View (Main Content) */}
+        {/* (Main Content) */}
         <View className="flex-grow px-3 h-4/5">
             <FlatList
                 data={courses}

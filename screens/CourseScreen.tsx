@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { View, Text, TouchableOpacity, Image, SafeAreaView, Animated, Easing } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { CourseType } from '../types';
 import { ArrowLeftIcon, UserIcon, CalendarIcon } from 'react-native-heroicons/outline'; 
@@ -49,7 +48,6 @@ const CourseScreen = () => {
                     {description}
                 </Text>
 
-                {/* Instructor Card */}
                 <TouchableOpacity className="flex flex-row items-center bg-red-300 rounded-2xl p-4 mb-4 shadow-md transform rotate-2 space-x-4 mb-8">
                     <UserIcon size={30} color="#065f46" className="mr-4"/>
                     <View>

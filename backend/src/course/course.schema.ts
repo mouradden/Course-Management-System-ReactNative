@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-// export type CourseDocument = HydratedDocument<Course>;
 
 @Schema()
 export class Course {
@@ -27,11 +26,3 @@ export interface CourseDocument extends Document {
   schedule: string;
 }
 
-// import * as mongoose from "mongoose"
-
-// export const CourseSchema = new mongoose.Schema({
-//     title: { type: String, required: true },
-//     description: { type: String, required: true },
-//     instructor: { type: String, required: true },
-//     schedule: { type: String, required: true },
-// });
