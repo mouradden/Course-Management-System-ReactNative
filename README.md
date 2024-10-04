@@ -26,3 +26,21 @@
     npm start
    ```
 
+## Some points in the features
+
+TypeScript, React Native, Tailwind CSS, MongoDB, Expo, NestJS, and Axios.
+
+
+## Some points in the features
+
+1. Auth
+
+Using NestJS, MongoDB, and bcrypt for secure user registration and login. The backend returns JSON responses with status codes for easy frontend handling, while Axios in React Native handles requests. Tokens are stored securely with Expo SecureStore to manage user sessions.
+
+2. Getting data and pagination
+
+Data retrieval and pagination using NestJS with MongoDB, allowing efficient loading of large datasets. The API handles requests by returning paginated results, ensuring smooth navigation for users. This improves performance and user experience by loading data in manageable chunks.
+
+3. Search efficiency
+
+Search efficiency by ensuring the input length exceeds three characters before querying. The system performs full-word matches to reduce unnecessary results and improve accuracy.
